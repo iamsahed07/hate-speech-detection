@@ -5,7 +5,7 @@ import numpy as np
 import pickle
 import re
 
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.sequence import pad_sequences
 
 
 # =========================================================
