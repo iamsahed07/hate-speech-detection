@@ -1,7 +1,7 @@
 torch
-tensorflow
 numpy
 pandas
 scikit-learn
 gradio
+keras
 pickle-mixin
