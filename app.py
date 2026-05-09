@@ -5,7 +5,35 @@ import numpy as np
 import pickle
 import re
 
-from keras.preprocessing.sequence import pad_sequences
+# =========================================================
+# CUSTOM PAD SEQUENCES
+# =========================================================
+
+def pad_sequences(sequences, maxlen, padding='post', truncating='post'):
+
+    padded_sequences = []
+
+    for seq in sequences:
+
+        if len(seq) > maxlen:
+
+            if truncating == 'post':
+                seq = seq[:maxlen]
+            else:
+                seq = seq[-maxlen:]
+
+        else:
+
+            pad_length = maxlen - len(seq)
+
+            if padding == 'post':
+                seq = seq + [0] * pad_length
+            else:
+                seq = [0] * pad_length + seq
+
+        padded_sequences.append(seq)
+
+    return np.array(padded_sequences)
 
 
 # =========================================================
