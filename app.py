@@ -1,3 +1,4 @@
+print("Starting app...")
 import gradio as gr
 import torch
 import torch.nn as nn
@@ -110,7 +111,7 @@ class BiGRUClassifier(nn.Module):
 with open(TOKENIZER_PATH, "rb") as f:
     _tokenizer = pickle.load(f)
 
-
+print("Tokenizer loaded")
 # =========================================================
 # LOAD MODEL
 # =========================================================
@@ -119,16 +120,19 @@ _model = BiGRUClassifier(
     vocab_size=MAX_VOCAB
 ).to(DEVICE)
 
+state_dict = torch.load(
+    MODEL_PATH,
+    map_location=DEVICE
+)
+
 _model.load_state_dict(
-    torch.load(
-        MODEL_PATH,
-        map_location=DEVICE
-    )
+    state_dict,
+    strict=False
 )
 
 _model.eval()
 
-
+print("Model loaded")
 # =========================================================
 # TEXT CLEANING
 # =========================================================
@@ -384,7 +388,7 @@ with gr.Blocks(
 # =========================================================
 # LAUNCH
 # =========================================================
-
+print("Launching Gradio...")
 demo.launch(
     server_name="0.0.0.0",
     server_port=7860
